@@ -1,5 +1,5 @@
-body{
-			font-family: Tahoma, sans-serif;
+        body{
+		  font-family: Tahoma, sans-serif;
 		}
 		h1{
 			text-align: center;
@@ -54,12 +54,18 @@ body{
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
         }
+        .puncher {
+            position: relative;
+            width: 20px;
+            height: 50px;
+            background-color: red;
+            right: -50%
+        }
 
-                @-webkit-keyframes animatedConveyor {
-    from { background-position: 0 0; }
-    to { background-position: 4000% 0; }
-
-}
+        @-webkit-keyframes animatedConveyor {
+            from { background-position: 0 0; }
+            to { background-position: 4000% 0; }
+        }
 
     #animate-area   { 
     width: 100%; 
@@ -68,5 +74,5 @@ body{
     background-image: url(surface1.jpg);
     background-position: 0px 0px;
     background-repeat: repeat-x;
-    animation: animatedConveyor 40s linear infinite;
+    animation: animatedConveyor 53s linear infinite;
 }

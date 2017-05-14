@@ -1,7 +1,7 @@
 
        function Washer()
        {
-            //create div class item  into washerBox
+            //create div class item into washerBox
             this.CreateNew = function()
             {
                 this.div = document.createElement("div");
@@ -17,8 +17,14 @@
                     console.log(pos);
                     console.log("------------------");
                     $("#score").text(totalScore+" ");
+                    punch();
                 });
-
+                $(this.div).keydown(function(e) {
+                    if (e.keyCode == 40) {
+                        punch();
+                        alert("space pressed");
+                    }
+                });
             };
 
             this.speed = 1.5;
@@ -72,7 +78,7 @@
 
        function gapBetween(n)
        {
-            if ((frameCount / n) % 1 == 0) {return true;}
+            if (frameCount % n == 0) {return true;}
             return false;
        }
                 $(document).ready
