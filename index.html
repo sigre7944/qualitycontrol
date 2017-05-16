@@ -6,32 +6,40 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.1.1/rzslider.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="washer.js"></script>
+	<script type="text/javascript" src="conveyor.js"></script>
+	<script type="text/javascript" src="puncher.js"></script>
+	<script type="text/javascript" src="graph.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.1.1/rzslider.min.css">
 	<link rel="stylesheet" href="style.css">
 </head>
+
+
+
 <body ng-app="myApp">
 <h1>Six Sigma Demonstration Game</h1>
 
 <div ng-controller="MyCtrl">
 <div ng-model="gamePlay" ng-hide="gamePlay">
-<div ng-model="info">
+	<div ng-model="info" style=" border: solid; height: 210px">
+		<div id="monitor" style="background-color: red; height: 200px; width: 400px; float: right;"></div>
 		<label ng-model="player">Player: {{name}}</label>
 		<br/>
 		<label> Score: </label> <label id="score"></label>
+		
 	</div>
-<div class="container">	
-    <div id="washerBox" style="position: relative;  height: 200px;  border:solid; border-color: red; background: black;">
-    	<div id="animate-area"> </div>
-    </div>    
-</div>
+	<div class="container">	
+    	<div id="washerBox"></div>    
+    	<div class="puncher"></div>
+	</div>
 </div>
 <div ng-show="visible" class="menu" >
 	<input type="text" ng-model="name" placeholder="Player's name" class="w3-input">
 	<br/>
 	<article>
 		<label class="levelLbl">Difficulty Level {{color_slider_bar.value}}</label>
-		
+
 		<br/>
 		<rzslider
           rz-slider-model="color_slider_bar.value"
@@ -80,14 +88,67 @@
 
     <script type="text/javascript">
     var washers = [];
+	var conveyors = [];
+	var samples = [];
     var frameCount = 0;
     var totalScore = 0;
+	var gameSpeed  = 1.5;
     
-
+    drawGraph();
     setInterval(update, 10);
 
+    function initialisation() {
+    	for (var i = 0; i < 6; i++) {
+    		var conveyor;
+            conveyor = new Conveyor();
+            conveyor.CreateNew();
+            conveyor.x = $('#washerBox').width() - ($('.convey').width() * (i + 1));
+            conveyors.push(conveyor);
+    	}
+    }
     
-       
+    function update()
+       {
+            var flag = false;
+            if (frameCount == 0 || gapBetween(160))
+            {
+                var conveyor;
+                conveyor = new Conveyor();
+                conveyor.CreateNew();
+
+                conveyors.push(conveyor);
+            }
+            frameCount++;
+
+            moveAllConveyors();
+            
+            var pos = conveyors[0].x;
+            if (pos >= $("#washerBox").width() - $(".convey").width())
+                flag = true;
+
+            if (flag==true)
+            {        
+                if (gapBetween(160))
+                {
+                    var washer;
+                    washer = new Washer();
+                    washers.push(washer);
+                    washer.CreateNew(); 
+                }    
+               
+                moveAllWashers();
+            }//if flag          
+            
+       }
+
+       function gapBetween(n)
+       {
+            if (frameCount % n == 0) return true;
+            return false;
+       }
+
+
+      
     </script>
 </body>
 </html>

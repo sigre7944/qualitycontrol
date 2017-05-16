@@ -33,40 +33,41 @@ body{
 		}
 		.item{
             position: absolute;
-            background-image: url('circle.png');
-            transform: skewX(-20deg);
+            background: gray;
+            transform: skewX(0deg);
             border-radius: 50%;
-            width: 50px;
+            width: 70px;
             height: 50px;
-            top: 40%;
-            left: -10%;      
-
+            top: 40%;         
         }
+		.convey{
+			position: absolute;
+			background-image: url(surface1.jpg);
+			left: -242px;
+			width: 242px;
+			height: 130px;
+		}
         canvas{
             border: solid;
             border-color: blue;
         }
         .container{
             position: fixed;
-            top: 50%;
+            top: 70%;
             left: 50%;
             width: 100%;
+            height: 130px;
+            background-color: grey;
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
         }
 
-                @-webkit-keyframes animatedConveyor {
-    from { background-position: 0 0; }
-    to { background-position: 4000% 0; }
+        .puncher {
+            position: relative;
+            width: 20px;
+            height: 50px;
+            top: -30px;
+            background-color: red;
+            right: -50%
+        }
 
-}
-
-    #animate-area   { 
-    width: 100%; 
-    height: 100%; 
-    border:1px solid red;
-    background-image: url(surface1.jpg);
-    background-position: 0px 0px;
-    background-repeat: repeat-x;
-    animation: animatedConveyor 40s linear infinite;
-}
